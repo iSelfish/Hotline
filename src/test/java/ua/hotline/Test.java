@@ -18,7 +18,8 @@ public class Test {
         String testType;
         testType = new StartPage()
                 .navigateTo("https://hotline.ua/")
-                .closePopUp().textToSearchField("телевизор")
+                .closePopUp()
+                .textToSearchField("телевизор")
                 .clickSearchButton()
                 .waitForProductsListPage()
                 .openFirstItem()
@@ -33,7 +34,8 @@ public class Test {
         int expensiveItems;
         expensiveItems = new StartPage()
                 .navigateTo("https://hotline.ua/")
-                .closePopUp().textToSearchField("телевизор")
+                .closePopUp()
+                .textToSearchField("телевизор")
                 .clickSearchButton()
                 .waitForProductsListPage()
                 .sortByPrice()

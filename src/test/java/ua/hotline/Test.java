@@ -61,7 +61,7 @@ public class Test {
                 .clickSearchButton()
                 .waitForProductsListPage()
                 .sortByPrice()
-                .countExpensiveItems(10000, 5);
+                .countExpensiveItemsOnCurrentPage(10000);
         assertEquals(0, expensiveItems);
     }
 }

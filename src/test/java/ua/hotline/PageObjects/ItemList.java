@@ -27,8 +27,8 @@ public class ItemList {
         return new ItemList();
     }
 
-    private int countExpensiveItemsOnCurrentPage(int maxPrice) {
-        int expensiveItemsCount = 0;
+    public int countExpensiveItemsOnCurrentPage(int maxPrice) {
+       /* int expensiveItemsCount = 0;
         String priceString;
         String checkClass;
         String checkPrice;
@@ -38,12 +38,10 @@ public class ItemList {
                 checkClass = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]/div[3]")).getAttribute("class");
                 System.out.println("Item = " + i);
                 if (checkClass.equals("item-price stick-bottom")) {
-                    checkPrice = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]/div[3]/div[@class='stick-pull cell-xs-6'][1]/div[@class='price-md']/span[1]")).getAttribute("class");
-                    if (checkPrice.equals("price-format")) {
-                        priceString = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]/div[@class='item-price stick-bottom']/div[@class='stick-pull cell-xs-6'][1]/div[@class='price-md']/span[@class='price-format']/span[@class='value']")).getText();
-                    } else {
-                        priceString = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]/div[@class='item-price stick-bottom']/div[@class='stick-pull cell-xs-6'][1]/div[@class='price-md']/span[@class='value']")).getText();
-                    }
+
+
+                        priceString = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i +"]//span[@class='value']")).getText();
+
                     priceString = priceString.replaceAll(" ", "");
                     price = Integer.parseInt(priceString);
                     System.out.println("price = " + price);
@@ -55,8 +53,38 @@ public class ItemList {
             }
         }
         return expensiveItemsCount;
+        */
+
+        //div[contains(@class,'price-md')]/span[contains(@class,'value')]
+        WebElement nextPage;
+        int temp = 0;
+        for (int i = 1; i < 5;i++ ){
+
+            nextPage = Driver.getDriver().findElement(By.xpath("//a[@class='next']"));
+            nextPage.click();
+            WebElement price[] = Driver.getDriver().findElements(By.xpath("//div[span[contains(@class, 'value')]]")).toArray(new WebElement[0]);
+            System.out.println("Price from: " + i + " page" );
+            //maxPrice = checkPrice(price);
+            if(maxPrice  < checkPrice(price)){
+                temp = checkPrice(price);
+            }
+        }
+        return temp;
     }
 
+    public static int checkPrice(WebElement[] price){
+        for (int i = 0; i < price.length;i++){
+            String priceStr = price[i].getText();
+            Integer priceValue = Integer.parseInt(priceStr.replace(" ", "").replace("грн", ""));
+            if(priceValue > 10000) {
+                return priceValue;
+            }
+        }
+        System.out.println("Pages does not have price more than 10000");
+        return 0;
+    }
+
+/*
     public int countExpensiveItems(int maxPrice, int amountOfPages) {
         int page = 1;
         int expansiveItemsCounter = 0;
@@ -73,5 +101,5 @@ public class ItemList {
     private ItemList nextPage() {
         Driver.getDriver().findElement(By.xpath("//a[@class='next']")).click();
         return new ItemList();
-    }
+    }*/
 }

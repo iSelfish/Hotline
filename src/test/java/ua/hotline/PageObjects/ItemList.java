@@ -10,9 +10,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ItemList {
     private By firstItem = By.xpath("//li[@class='product-item'][1]/div[@class='item-info']/p/a");
+    private By nextPageButton = By.xpath("//a[@class='next']");
+    private By sortButton = By.xpath("//ul[@class='sorting-in']/li/select[@class='field']");
+    private By waitProductList = By.cssSelector("[class=\"products-list cell-list\"]");
 
     public ItemList waitForProductsListPage() {
-        Driver.getDriverWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("[class=\"products-list cell-list\"]")));
+        WebElement waitProductListElement = Driver.getDriver().findElement(waitProductList);
+        Driver.getDriverWait().until(ExpectedConditions.visibilityOf(waitProductListElement));
         return new ItemList();
     }
 
@@ -23,7 +27,8 @@ public class ItemList {
     }
 
     public ItemList sortByPrice() {
-        Driver.getDriver().findElement(By.xpath("//ul[@class='sorting-in']/li/select[@class='field']")).sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+        WebElement sortButtonElement = Driver.getDriver().findElement(sortButton);
+        sortButtonElement.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
         return new ItemList();
     }
 
@@ -54,8 +59,8 @@ public class ItemList {
         return expensiveItemsCounter;
     }
 
-    private ItemList nextPage() {
-        Driver.getDriver().findElement(By.xpath("//a[@class='next']")).click();
-        return new ItemList();
+    private void nextPage() {
+        WebElement nextPageButtonElement = Driver.getDriver().findElement(nextPageButton);
+        nextPageButtonElement.click();
     }
 }

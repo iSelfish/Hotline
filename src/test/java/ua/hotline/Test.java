@@ -47,6 +47,7 @@ public class Test {
         }catch (IOException e){
             e.printStackTrace();
         }*/
+        System.out.println("branch2");
         assertTrue(testType.contains("телевізор"));
     }
 

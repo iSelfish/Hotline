@@ -2,8 +2,10 @@ package ua.hotline;
 
 import core.Driver;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import ua.hotline.PageObjects.StartPage;
@@ -16,6 +18,10 @@ import static org.junit.Assert.assertTrue;
 
 public class Test {
 
+    @Before
+    public void basicConfigure(){
+        BasicConfigurator.configure();
+    }
     @After
     public void killDriver() {
         Driver.kill();

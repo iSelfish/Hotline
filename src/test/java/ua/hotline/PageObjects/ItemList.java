@@ -27,7 +27,7 @@ public class ItemList {
         return new ItemList();
     }
 
-    private int countExpensiveItemsOnCurrentPage(int maxPrice) {
+    /*private int countExpensiveItemsOnCurrentPage(int maxPrice) {
         int expensiveItemsCount = 0;
         String priceString;
         String checkClass;
@@ -44,6 +44,29 @@ public class ItemList {
                     } else {
                         priceString = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]/div[@class='item-price stick-bottom']/div[@class='stick-pull cell-xs-6'][1]/div[@class='price-md']/span[@class='value']")).getText();
                     }
+                    priceString = priceString.replaceAll(" ", "");
+                    price = Integer.parseInt(priceString);
+                    System.out.println("price = " + price);
+                    if (price > maxPrice) {
+                        expensiveItemsCount++;
+                    }
+                }
+            } catch (NoSuchElementException ignored) {
+            }
+        }
+        return expensiveItemsCount;
+    }*/
+    private int countExpensiveItemsOnCurrentPage(int maxPrice) {
+        int expensiveItemsCount = 0;
+        String priceString;
+        String checkClass;
+        int price;
+        for (int i = 1; i < 21; i++) {
+            try {
+                checkClass = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]/div[3]")).getAttribute("class");
+                System.out.println("Item = " + i);
+                if (checkClass.equals("item-price stick-bottom")) {
+                    priceString = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]//span[@class='value']")).getText();
                     priceString = priceString.replaceAll(" ", "");
                     price = Integer.parseInt(priceString);
                     System.out.println("price = " + price);

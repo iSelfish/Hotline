@@ -12,11 +12,9 @@ public class ItemList {
     private By firstItem = By.xpath("//li[@class='product-item'][1]/div[@class='item-info']/p/a");
     private By nextPageButton = By.xpath("//a[@class='next']");
     private By sortButton = By.xpath("//ul[@class='sorting-in']/li/select[@class='field']");
-    private By waitProductList = By.cssSelector("[class=\"products-list cell-list\"]");
 
     public ItemList waitForProductsListPage() {
-        WebElement waitProductListElement = Driver.getDriver().findElement(waitProductList);
-        Driver.getDriverWait().until(ExpectedConditions.visibilityOf(waitProductListElement));
+        Driver.getDriverWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("[class=\"products-list cell-list\"]")));
         return new ItemList();
     }
 
@@ -37,12 +35,14 @@ public class ItemList {
         String priceString;
         int price;
         int expensiveItemsCounter = 0;
+        WebElement nextPageButtonElement;
         do {
             System.out.println("current page = " + page);
             for (int i = 1; i < 21; i++) {
                 try {
                     System.out.println("Item = " + i);
-                    priceString = Driver.getDriver().findElement(By.xpath("//li[@class='product-item'][" + i + "]//span[@class='value']")).getText();
+                    priceString = Driver.getDriver()
+                            .findElement(By.xpath("//li[@class='product-item'][" + i + "]//span[@class='value']")).getText();
                     priceString = priceString.replaceAll(" ", "");
                     price = Integer.parseInt(priceString);
                     System.out.println("price = " + price);
@@ -52,15 +52,11 @@ public class ItemList {
                 } catch (NoSuchElementException ignored) {
                 }
             }
-            //System.out.println("expensiveItemsCounter = " + expensiveItemsCounter);
-            new ItemList().nextPage();
+            System.out.println("expensiveItemsCounter = " + expensiveItemsCounter);
+            nextPageButtonElement = Driver.getDriver().findElement(nextPageButton);
+            nextPageButtonElement.click();
             page++;
         } while (page < (amountOfPages + 1));
         return expensiveItemsCounter;
-    }
-
-    private void nextPage() {
-        WebElement nextPageButtonElement = Driver.getDriver().findElement(nextPageButton);
-        nextPageButtonElement.click();
     }
 }

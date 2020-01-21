@@ -1,9 +1,18 @@
 package ua.hotline;
 
 import core.Driver;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import ua.hotline.PageObjects.StartPage;
+
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Test {
 
@@ -25,7 +34,14 @@ public class Test {
                 .openFirstItem()
                 .waitForSpecificationPage()
                 .getType();
-        Assert.assertTrue(testType.contains("телевизор"));
+        /*скриншотик
+        File screenshotAs = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.FILE);
+        try{
+            FileUtils.copyFile(screenshotAs, new File("C:/Users/Dmytro_Kolos/Desktop/image.png"));
+        }catch (IOException e){
+            e.printStackTrace();
+        }*/
+        assertTrue(testType.contains("телевізор"));
     }
 
     //2. вводим в поиск телевизор, сортируем по возрастанию цены и проверяем что на первых 5 ти страницах нет телевизоров дороже 10000
@@ -40,6 +56,6 @@ public class Test {
                 .waitForProductsListPage()
                 .sortByPrice()
                 .countExpensiveItems(10000, 5);
-        Assert.assertEquals(0, expensiveItems);
+        assertEquals(0, expensiveItems);
     }
 }

@@ -18,7 +18,7 @@ public class Driver {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-            System.out.println("getDriver()");
+                        System.out.println("getDriver()");
         }
         return driver;
     }

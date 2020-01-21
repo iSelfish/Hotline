@@ -52,7 +52,7 @@ public class ItemList {
                 } catch (NoSuchElementException ignored) {
                 }
             }
-            System.out.println("expensiveItemsCounter = " + expensiveItemsCounter);
+            //System.out.println("expensiveItemsCounter = " + expensiveItemsCounter);
             new ItemList().nextPage();
             page++;
         } while (page < (amountOfPages + 1));

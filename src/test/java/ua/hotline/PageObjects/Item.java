@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Item {
-
-
     private WebElement type = Driver.getDriver().findElement(By.xpath("//tr[2]/td[@class='cell-8 cell-xs-6']/div[@class='p_l-10']/span/a"));
 
     public Item waitForSpecificationPage() {

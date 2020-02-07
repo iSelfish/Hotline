@@ -4,11 +4,12 @@ import core.Driver;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import ua.hotline.PageObjects.StartPage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class Test {
+public class RunTests {
 
     @Before
     public void basicConfigure(){
@@ -20,7 +21,7 @@ public class Test {
     }
 
     //1. вводим в поиск телевизор, открываем первый товар, в характеристиках проверяем что в графе тип есть слово телевизор (Тип: LCD телевизор (LED))
-    @org.junit.Test
+    @Test
     public void firstTest() {
         String testType;
         testType = new StartPage()
@@ -43,7 +44,7 @@ public class Test {
     }
 
     //2. вводим в поиск телевизор, сортируем по возрастанию цены и проверяем что на первых 5 ти страницах нет телевизоров дороже 10000
-    @org.junit.Test
+    @Test
     public void secondTest() {
         int expensiveItems;
         expensiveItems = new StartPage()
@@ -53,7 +54,7 @@ public class Test {
                 .clickSearchButton()
                 .waitForProductsListPage()
                 .sortByPrice()
-                .countExpensiveItems(10000, 5);
+                .countItemsMoreExpensiveThan(10000, 5);
         assertEquals(0, expensiveItems);
     }
 }

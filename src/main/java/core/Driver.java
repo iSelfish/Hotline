@@ -10,7 +10,6 @@ public class Driver {
     private static WebDriver driver;
     private static WebDriverWait wait;
     private Driver() {
-        System.out.println("Driver()");
     }
 
     public static WebDriver getDriver() {
@@ -18,7 +17,7 @@ public class Driver {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-                        System.out.println("getDriver()");
+            System.out.println("getDriver()");
         }
         return driver;
     }
